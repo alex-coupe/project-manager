@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace project_manager.Models
 {
     class Project
     {
-        [Key]
         public long Id {get; set;}
 
         [DataType(DataType.Date)]
@@ -20,12 +20,12 @@ namespace project_manager.Models
         [DataType(DataType.Text)]
         public string Owner {get; set;}
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.MultilineText)]
         public string Descripton {get; set;}
 
-        public List<Issues> Issues {get; set;}
+        public List<Issue> Issues {get; set;}
 
-        public List<Tasks> Tasks {get; set;}
+        public List<Task> Tasks {get; set;}
 
 
     }
