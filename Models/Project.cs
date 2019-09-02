@@ -31,7 +31,7 @@ namespace ProjectManager.Models
         [Required]
         [MaxLength(500)]
         [DataType(DataType.MultilineText)]
-        public string Descripton {get; set;}
+        public string Description {get; set;}
 
         public List<Issue> Issues {get; set;}
 

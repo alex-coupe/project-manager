@@ -60,7 +60,7 @@ namespace ProjectManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Descripton")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500);
 
@@ -83,6 +83,7 @@ namespace ProjectManager.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AssignedTo")
+                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<bool>("Completed");
@@ -92,9 +93,11 @@ namespace ProjectManager.Migrations
                     b.Property<DateTime>("DateAssigned");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(500);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<long>("ProjectId");
@@ -108,7 +111,7 @@ namespace ProjectManager.Migrations
 
             modelBuilder.Entity("ProjectManager.Models.Issue", b =>
                 {
-                    b.HasOne("ProjectManager.Models.Project", "Project")
+                    b.HasOne("ProjectManager.Models.Project")
                         .WithMany("Issues")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -116,7 +119,7 @@ namespace ProjectManager.Migrations
 
             modelBuilder.Entity("ProjectManager.Models.Task", b =>
                 {
-                    b.HasOne("ProjectManager.Models.Project", "Project")
+                    b.HasOne("ProjectManager.Models.Project")
                         .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
