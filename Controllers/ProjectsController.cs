@@ -20,15 +20,17 @@ namespace ProjectManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.Include(l => l.Tasks)
-            .Include(l => l.Issues)
+            return await _context.Projects.Include(project => project.Tasks)
+            .Include(project => project.Issues)
             .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(long id)
         {
-            var project = await _context.Projects.Include(l => l.Tasks).Include(l => l.Issues).FirstOrDefaultAsync(p => p.Id == id);
+            var project = await _context.Projects.Include(project => project.Tasks)
+            .Include(project => project.Issues)
+            .FirstOrDefaultAsync(entity => entity.Id == id);
 
             if (project == null)
                 return NotFound();
