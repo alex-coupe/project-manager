@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace project_manager.Models
 {
-    class Project
+    public class Project
     {
+        //Model to represent the overall idea of a project within the application
         public long Id {get; set;}
 
         [DataType(DataType.Date)]

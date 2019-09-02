@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace project_manager.Models
 {
-    class Issue
+    public class Issue
     {
+        // Model to represent any issues that have arisen during the project
         public long Id {get; set;}
 
         public Project Project {get; set;}

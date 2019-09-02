@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace project_manager.Models 
 {
-    class Task 
+    public class Task 
     {
+        // Model to represent the idea of an individual task within the project
         public long Id {get; set;}
 
         public Project Project {get; set;}
