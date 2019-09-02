@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using project_manager.Models;
+using ProjectManager.Models;
 
-namespace project_manager
+namespace ProjectManager
 {
     public class Startup
     {

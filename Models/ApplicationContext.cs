@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace project_manager.Models
+namespace ProjectManager.Models
 {
     public class ApplicationContext : DbContext
     {

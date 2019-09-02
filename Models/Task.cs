@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace project_manager.Models 
+namespace ProjectManager.Models 
 {
     public class Task 
     {

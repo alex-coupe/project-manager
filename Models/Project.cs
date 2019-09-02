@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace project_manager.Models
+namespace ProjectManager.Models
 {
     public class Project
     {
