@@ -49,9 +49,11 @@ namespace ProjectManager.Controllers
             return CreatedAtAction("GetProject", new {id = project.Id}, project);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Project>> PutProject(Project project, long id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Project>> PutProject([FromBody]Project project, long id)
         {
+            var projects = await _context.Projects.FindAsync(id);
+
             if (id != project.Id)
                 return BadRequest();
 
@@ -61,7 +63,7 @@ namespace ProjectManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(long id)
         {
             var project = await _context.Projects.FindAsync(id);
