@@ -20,7 +20,7 @@ namespace ProjectManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects.Include(l => l.Tasks).ToListAsync();
         }
 
         [HttpGet("{id}")]

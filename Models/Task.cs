@@ -10,9 +10,6 @@ namespace ProjectManager.Models
         public long Id {get; set;}
 
         [Required]
-        public Project Project {get; set;}
-
-        [Required]
         public long ProjectId {get; set;}
 
         [Required]
