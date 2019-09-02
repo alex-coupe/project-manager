@@ -26,7 +26,7 @@ namespace ProjectManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase("ProjectManager"));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(Configuration.GetConnectionString("ProjectManager")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
