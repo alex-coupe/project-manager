@@ -7,6 +7,8 @@ namespace project_manager.Models
     {
         public long Id {get; set;}
 
+        public Project Project {get; set;}
+
         [DataType(DataType.Text)]
         public string Name {get; set;}
 
