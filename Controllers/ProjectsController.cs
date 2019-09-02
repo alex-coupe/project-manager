@@ -28,7 +28,7 @@ namespace ProjectManager.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(long id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects.Include(l => l.Tasks).Include(l => l.Issues).FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)
                 return NotFound();
