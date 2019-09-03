@@ -9,7 +9,7 @@ export default function TopBar(props) {
              <div className="collapse navbar-collapse" id="navbarSupportedContent">
                  <ul className="navbar-nav ml-auto">
                      <li className="nav-item nav-link active">
-                         <h3>Welcome, {props.user}</h3>
+                         <h3 className="mr-5">Welcome, {props.user}</h3>
                      </li>
                  </ul>
              </div>
