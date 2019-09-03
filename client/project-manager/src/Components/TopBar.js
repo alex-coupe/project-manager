@@ -18,7 +18,6 @@ export default function TopBar(props) {
      )
  }
 
-
 TopBar.propTypes = {
  user: PropTypes.string
 };
