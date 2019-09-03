@@ -47,5 +47,17 @@ namespace ProjectManager.Controllers
             return CreatedAtAction("AddTask", new {id = task.Id}, task);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ProjectManager.Models.Task>> UpdateTask(ProjectManager.Models.Task updatedTask, long id)
+        {
+            if (id != updatedTask.Id)
+                return BadRequest();
+            
+            _context.Entry(updatedTask).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
     }
 }
