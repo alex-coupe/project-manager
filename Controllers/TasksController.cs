@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProjectManager.Models;
+
+namespace ProjectManager.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    
+    public class TasksController : ControllerBase
+    {
+        private readonly ApplicationContext _context;
+
+        public TasksController(ApplicationContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProjectManager.Models.Task>>> GetTasks()
+        {
+            return await _context.Tasks.AsNoTracking()
+            .ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProjectManager.Models.Task>> GetTask(long id)
+        {
+            var taskDetails = await _context.Tasks.AsNoTracking()
+            .FirstOrDefaultAsync(entity => entity.Id == id);
+
+            if (taskDetails == null)
+                return NotFound();
+
+            return taskDetails;
+        }
+
+    }
+}
