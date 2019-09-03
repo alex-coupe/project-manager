@@ -50,14 +50,14 @@ namespace ProjectManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Project>> PutProject([FromBody]Project project, long id)
-        {
-            var projects = await _context.Projects.FindAsync(id);
-
-            if (id != project.Id)
+        public async Task<ActionResult<Project>> PutProject(Project modifiedProject, long id)
+        {           
+            if (id != modifiedProject.Id)
                 return BadRequest();
+            
+            System.Console.Write(modifiedProject.Id);
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(modifiedProject).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
