@@ -37,7 +37,7 @@ export default class Tasks extends Component {
             <div >
                 <div className="mt-5">
                     <div id="overview" className="card" style={{width: 'auto'}}>
-                        <h2 className="card-header text-center" style={{backgroundColor: "#ebf2fc"}}><FontAwesomeIcon icon={faEdit}/> 
+                        <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
                          Tasks <span className="badge badge-dark">{this.state.projectList.length}</span></h2>
                         <div className="card-body" style={{backgroundColor: "#fff6db"}}>
                             <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
