@@ -41,7 +41,7 @@ namespace ProjectManager.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<Project>> AddProject(Project project)
         {
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
@@ -50,12 +50,12 @@ namespace ProjectManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Project>> PutProject(Project modifiedProject, long id)
+        public async Task<ActionResult<Project>> UpdateProject(Project updatedProject, long id)
         {           
-            if (id != modifiedProject.Id)
+            if (id != updatedProject.Id)
                 return BadRequest();
             
-            _context.Entry(modifiedProject).State = EntityState.Modified;
+            _context.Entry(updatedProject).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();

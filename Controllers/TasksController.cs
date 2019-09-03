@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +21,7 @@ namespace ProjectManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjectManager.Models.Task>>> GetTasks()
         {
-            return await _context.Tasks.AsNoTracking()
-            .ToListAsync();
+            return await _context.Tasks.AsNoTracking().ToListAsync();
         }
 
         [HttpGet("{id}")]
