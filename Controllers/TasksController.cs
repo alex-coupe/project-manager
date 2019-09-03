@@ -38,5 +38,14 @@ namespace ProjectManager.Controllers
             return taskDetails;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ProjectManager.Models.Task>> AddTask(ProjectManager.Models.Task task)
+        {
+            _context.Tasks.Add(task);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("AddTask", new {id = task.Id}, task);
+        }
+
     }
 }

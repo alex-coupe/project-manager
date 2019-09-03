@@ -46,7 +46,7 @@ namespace ProjectManager.Controllers
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new {id = project.Id}, project);
+            return CreatedAtAction("PostProject", new {id = project.Id}, project);
         }
 
         [HttpPut("{id}")]
@@ -55,8 +55,6 @@ namespace ProjectManager.Controllers
             if (id != modifiedProject.Id)
                 return BadRequest();
             
-            System.Console.Write(modifiedProject.Id);
-
             _context.Entry(modifiedProject).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
