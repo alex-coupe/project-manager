@@ -59,5 +59,21 @@ namespace ProjectManager.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ProjectManager.Models.Task>> DeleteTask(long id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+                return NotFound();
+
+            _context.Tasks.Remove(task);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+
+        }
+
     }
 }
