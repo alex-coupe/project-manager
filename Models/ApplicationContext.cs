@@ -12,5 +12,6 @@ namespace ProjectManager.Models
         public DbSet<Project> Projects {get; set;}
         public DbSet<Task> Tasks {get; set;}
         public DbSet<Issue> Issues {get; set;}
+        public DbSet<User> Users {get; set;}
     }
 }
