@@ -1,49 +1,10 @@
 import React from 'react';
-import FilterBar from './../Components/Core/FilterBar';
+import FilterBar from '../Components/FilterBar';
 import {shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {tasksFilterOptions, tasksTableOptions} from '../Components/Util/TasksConfig'
 
 configure({adapter: new Adapter()});
-
-const  taskList = [
-    {
-        id: 1,
-        taskName: 'Review New Claim',
-        claimSpecNo: '5500001',
-        type: 'Claim', 
-        assigned: 'Alex Coupe',
-        priority: 'Normal',
-        dueDate: '01-09-2019'
-    },
-    {
-        id: 2,
-        name: 'Review New Invoice',
-        claimSpecNo: '5500000',
-        type: 'Claim', 
-        assigned: 'Alex Coupe',
-        priority: 'Normal',
-        dueDate: '01-09-2019'
-    },
-    {
-        id: 3,
-        name: 'Diary Review',
-        claimSpecNo: '5500244',
-        type: 'Specification', 
-        assigned: 'Donald Duck',
-        priority: 'Urgent',
-        dueDate: '29-09-2019'
-    },
-    {
-        id: 4,
-        name: 'Loss Adjustor Report Received',
-        claimSpecNo: '5500044',
-        type: 'Claim', 
-        assigned: 'Peter Parker',
-        priority: 'Urgent',
-        dueDate: '05-09-2019'
-    },
-]
 
 test('FilterBar Renders To The Dom', () => {
     const wrapper = shallow(<FilterBar  fetching={false} data={taskList} recordsPerPage={2} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />);

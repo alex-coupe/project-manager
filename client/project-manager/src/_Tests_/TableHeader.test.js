@@ -1,5 +1,5 @@
 import React from 'react';
-import TableHeader from './../Components/Core/TableHeader';
+import TableHeader from '../Components/TableHeader';
 import {shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {tasksTableOptions, tasksFilterOptions} from '../Components/Util/TasksConfig'

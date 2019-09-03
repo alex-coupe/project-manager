@@ -10,7 +10,7 @@ export default class Tasks extends Component {
         super(props)
 
         this.state = {
-            taskList: [],
+            projectList: [],
             fetchingTasks: true
         }
 
@@ -21,7 +21,7 @@ export default class Tasks extends Component {
         .then(response => response.json())
         .then (json => {
             this.setState({
-                taskList: json
+                projectList: json
             });
         })
         .catch(error => console.log(error)
@@ -38,9 +38,9 @@ export default class Tasks extends Component {
                 <div className="mt-5">
                     <div id="overview" className="card" style={{width: 'auto'}}>
                         <h2 className="card-header text-center" style={{backgroundColor: "#ebf2fc"}}><FontAwesomeIcon icon={faEdit}/> 
-                         Tasks <span className="badge badge-dark">{this.state.taskList.length}</span></h2>
+                         Tasks <span className="badge badge-dark">{this.state.projectList.length}</span></h2>
                         <div className="card-body" style={{backgroundColor: "#fff6db"}}>
-                            <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
+                            <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
                         </div>
                     </div> 
                 </div>
