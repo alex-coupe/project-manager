@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManager.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
 
 namespace ProjectManager
 {
@@ -25,7 +26,9 @@ namespace ProjectManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().AddJsonOptions(opt => {
+                opt.SerializerSettings.DateFormatString = "dd-M-yyyy";
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
            
             services.AddDbContext<ApplicationContext>(options => options.UseSqlite(Configuration.GetConnectionString("ProjectManager")));
             services.AddCors(c => {

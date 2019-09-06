@@ -27,13 +27,13 @@ namespace ProjectManager.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public virtual DateTime CreatedDate {get; set;}
+        public DateTime CreatedDate {get; set;}
 
         [Required]
         public bool Completed {get; set;} = false;
 
         [DataType(DataType.Date)]
-        public virtual DateTime? CompletionDate {get; set;}
+        public DateTime? CompletionDate {get; set;}
 
     }
 }

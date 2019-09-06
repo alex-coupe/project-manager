@@ -37,8 +37,8 @@ export default class Projects extends Component {
                          Projects <span className="badge badge-dark">{this.state.projectList.length}</span></h2>
                         <div className="card-body" style={{backgroundColor: "#fff6db"}}>
                             <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
+                            <button className="btn btn-primary mx-auto" style={{display: 'block'}}>Create New Project</button>
                         </div>
-                        <button className="btn btn-primary mx-auto mb-3">Create New Project</button>
                     </div> 
                 </div>
             </div>
