@@ -6,6 +6,14 @@ const projectFilterOptions = [
             'Alex Coupe',
             'Chili'
         ]
+    },
+    {
+        header: 'Completed',
+        body: [
+            '',
+            'True',
+            'False'
+        ]
     }
 ]
 

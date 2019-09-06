@@ -29,7 +29,6 @@ export default class Projects extends Component {
     }
 
     render() {
-        
         return (
             <div >
                 <div className="mt-5">
@@ -39,6 +38,7 @@ export default class Projects extends Component {
                         <div className="card-body" style={{backgroundColor: "#fff6db"}}>
                             <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
                         </div>
+                        <button className="btn btn-primary mx-auto mb-3">Create New Project</button>
                     </div> 
                 </div>
             </div>
