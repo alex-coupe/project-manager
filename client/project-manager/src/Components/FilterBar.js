@@ -68,7 +68,7 @@ export default class FilterBar extends Component {
     }
    
     render() {
-        const filterBar =  (<div id="overview" className="card m-4" style={{width: 'auto', backgroundColor: '#fff6db'}} data-testid="filterBar">
+        const filterBar =  (<div id="overview" className="card m-4" style={{width: 'auto', backgroundColor: '#f7f7f7'}} data-testid="filterBar">
         <div className="form-group m-2">
         {this.props.filterOptions && this.props.filterOptions.map((element) => { 
             return (<React.Fragment key={element.header}>
