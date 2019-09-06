@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import {Link} from 'react-router-dom'
 
 export default class Card extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class Card extends Component {
                         {this.props.name} <span className="badge badge-dark">{this.props.size}</span></h2>
                     <div className="card-body" style={{backgroundColor: "#fff6db"}}>
                         <div>{this.props.children}</div>
-                    <button className="btn btn-primary mx-auto" style={{display: 'block'}}>{this.props.buttonText}</button>
+                        <Link className="btn btn-primary text-white" to={this.props.link}>{this.props.buttonText}</Link>
                     </div>
                 </div>
             </div>
