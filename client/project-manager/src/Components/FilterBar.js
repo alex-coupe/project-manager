@@ -57,6 +57,7 @@ export default class FilterBar extends Component {
                     refiltered = filterByString(refiltered,dropdown.header,this.state[dropdown.header]);
                 } else if(event.target.name === dropdown.header) {
                     refiltered = filterByString(refiltered,dropdown.header,event.target.value);
+                   
                 }
             });
             this.setState({

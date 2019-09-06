@@ -11,8 +11,8 @@ const projectFilterOptions = [
         header: 'Completed',
         body: [
             '',
-            'True',
-            'False'
+            'true',
+            'false'
         ]
     }
 ]
@@ -36,7 +36,7 @@ const projectTableOptions = [
     },
     {
         displayName: 'Project Completed',
-        dataName: 'Completed'
+        dataName: 'completed'
     },
     {
         displayName: 'Completion Date',

@@ -38,8 +38,17 @@ export default class DisplayTableData extends Component {
                     items = [];
                     for (let i = 1; i < element.length; i++)
                     {
-                        items.push(<td key={id}>{element[i]}</td>);
-                        id++;
+                        //Any nulls aren't rendered
+                        if (String (element[i]) !== 'null'){
+                            //Capitalise first letter
+                            const lower = String (element[i]);
+                            const upper = lower.charAt(0).toUpperCase() + lower.substring(1);
+                            items.push(<td key={id}>{upper}</td>);
+                            id++;
+                        } else {
+                            items.push(<td key={id}></td>);
+                            id++;
+                        }
                     }
                     return (<tr key={id}>{items}</tr>)
                 })}
