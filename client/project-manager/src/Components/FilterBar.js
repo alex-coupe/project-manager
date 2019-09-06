@@ -25,6 +25,14 @@ export default class FilterBar extends Component {
         return initialState;
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.data !== this.props.data) {
+          this.setState({
+            filteredData:  this.props.data,
+        });
+      }
+    }
+
     clearfilter = () => {
         this.setState(this.getInitialState());
     }

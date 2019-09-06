@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import FilterBar from './FilterBar'
+import {projectFilterOptions, projectTableOptions} from '../Util/ProjectsConfig'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default class Projects extends Component {
 
@@ -6,8 +10,8 @@ export default class Projects extends Component {
         super(props)
 
         this.state = {
-            ProjectList: [],
-            fetchingTasks: true
+            projectList: [],
+            fetchingProjects: true
         }
     }
 
@@ -22,14 +26,23 @@ export default class Projects extends Component {
         .catch(error => console.log(error)
         );
         this.setState({
-            fetchingTasks: false
+            fetchingProjects: false
         });
     }
 
     render() {
+        
         return (
-            <div>
-                
+            <div >
+                <div className="mt-5">
+                    <div id="overview" className="card" style={{width: 'auto'}}>
+                        <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
+                         Projects <span className="badge badge-dark">{this.state.projectList.length}</span></h2>
+                        <div className="card-body" style={{backgroundColor: "#fff6db"}}>
+                            <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
+                        </div>
+                    </div> 
+                </div>
             </div>
         )
     }

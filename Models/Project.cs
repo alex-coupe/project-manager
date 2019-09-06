@@ -33,10 +33,5 @@ namespace ProjectManager.Models
         [DataType(DataType.MultilineText)]
         public string Description {get; set;}
 
-        public List<Issue> Issues {get; set;}
-
-        public List<Task> Tasks {get; set;}
-
-
     }
 }
