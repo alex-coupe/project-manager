@@ -10,7 +10,26 @@ const projectFilterOptions = [
 ]
 
 const projectTableOptions = [
-    'Created', 'Due', 'Name', 'Owner', 'Description'
+    {
+        displayName: 'Created Date',
+        dataName: 'createdDate'
+    },
+    {
+        displayName: 'Completion Date',
+        dataName: 'completionDate'
+    },
+    {
+        displayName: 'Name',
+        dataName: 'name'
+    },
+    {
+        displayName: 'Project Owner',
+        dataName: 'owner'
+    },
+    {
+        displayName: 'Project Description',
+        dataName: 'description'
+    },
 ]
 
 module.exports = {

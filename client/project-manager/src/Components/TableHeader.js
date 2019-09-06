@@ -65,7 +65,7 @@ export default class TableHeader extends Component {
             <thead data-testid="tableHeader">
                 <tr>
                     {this.props.tableHeaderOptions && this.props.tableHeaderOptions.map((option,i) => {
-                        return (<th scope="col" key={i}>{option} <button id={`id-${i}`} name={option.toLowerCase()} onClick={this.handleClick.bind(this)} 
+                        return (<th scope="col" key={i}>{option.displayName} <button id={`id-${i}`} name={option.dataName} onClick={this.handleClick.bind(this)} 
                         style={{border: '0', padding: '0', background: 'none'}} data-toggle="tooltip" data-placement="top" title={`Sort By ${option}`}>
                         <FontAwesomeIcon icon={faSort}/></button></th>)
                     })}

@@ -1,5 +1,6 @@
 function sortAscending(inputObjectArray, sortProperty) {
     inputObjectArray.sort((a,b) => {
+        console.log(sortProperty);
         const aUpper = a[sortProperty].toUpperCase();
         const bUpper = b[sortProperty].toUpperCase();
        
