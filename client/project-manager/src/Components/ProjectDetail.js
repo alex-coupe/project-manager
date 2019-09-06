@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumb from './Breadcrumb'
+import Card from './Card'
 
 export default class ProjectDetail extends Component {
 
@@ -39,22 +38,8 @@ export default class ProjectDetail extends Component {
             <div>   
               <Breadcrumb name={this.state.project.name} />
                 <div className="mt-5">
-                    <div id="overview" className="card" style={{width: 'auto'}}>
-                        <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
-                            Tasks <span className="badge badge-dark">{this.state.taskList.length}</span></h2>
-                        <div className="card-body" style={{backgroundColor: "#fff6db"}}>
-                        <button className="btn btn-primary mx-auto" style={{display: 'block'}}>Add Task</button>
-                        </div>
-                    </div>
-                    <div className="mt-5">
-                        <div id="overview" className="card" style={{width: 'auto'}}>
-                            <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
-                             Issues <span className="badge badge-dark">{this.state.issuesList.length}</span></h2>
-                            <div className="card-body" style={{backgroundColor: "#fff6db"}}>
-                            <button className="btn btn-primary mx-auto" style={{display: 'block'}}>Add Issue</button>
-                            </div>
-                        </div>   
-                    </div>
+                    <Card name={'Tasks'} size={this.state.taskList.length} buttonText={'Add New Task'}/>
+                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} />
                 </div>
             </div>
         )
