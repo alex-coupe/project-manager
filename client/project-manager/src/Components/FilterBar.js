@@ -39,7 +39,7 @@ export default class FilterBar extends Component {
 
     handleChange = (event) => {
         let refiltered = this.props.data;
-        //We're taking off a filter so recursively check all the others that are set
+        //We're taking off a filter so check all the others that are set
         if (event.target.value === '') {
             this.props.filterOptions.forEach((dropdown) => {
                 if (dropdown.header !== event.target.name) {

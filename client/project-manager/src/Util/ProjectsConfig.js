@@ -1,6 +1,6 @@
 const projectFilterOptions = [
     {
-        header: 'Name',
+        header: 'Owner',
         body: [
             '',
             'Alex Coupe',
@@ -10,7 +10,7 @@ const projectFilterOptions = [
 ]
 
 const projectTableOptions = [
-    'Created', 'Due', 'Name', 'Assigned', 'Description'
+    'Created', 'Due', 'Name', 'Owner', 'Description'
 ]
 
 module.exports = {
