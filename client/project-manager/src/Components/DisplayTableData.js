@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import ProjectDetail from './ProjectDetail'
 
 export default class DisplayTableData extends Component {
 
@@ -33,9 +35,11 @@ export default class DisplayTableData extends Component {
         let items = [];
         let id = 0;
         return (
+           
             <tbody>
                 {data.map(element => {
                     items = [];
+                   
                     for (let i = 1; i < element.length; i++)
                     {
                         //Any nulls aren't rendered
@@ -43,7 +47,8 @@ export default class DisplayTableData extends Component {
                             //Capitalise first letter
                             const lower = String (element[i]);
                             const upper = lower.charAt(0).toUpperCase() + lower.substring(1);
-                            items.push(<td key={id}>{upper}</td>);
+                            items.push(<td key={id}><Link to={`/project/${element[0]}`}>{upper}</Link></td>);
+
                             id++;
                         } else {
                             items.push(<td key={id}></td>);
@@ -52,7 +57,9 @@ export default class DisplayTableData extends Component {
                     }
                     return (<tr key={id}>{items}</tr>)
                 })}
-            </tbody>   
+                
+            </tbody> 
+           
         )
     }
 }
