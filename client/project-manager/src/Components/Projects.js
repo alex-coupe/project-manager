@@ -30,7 +30,7 @@ export default class Projects extends Component {
         return (
             <div >
                 <div className="mt-5">
-                    <Card name={'Projects'} size={this.state.projectList.length} buttonText={'Create New Project'}>
+                    <Card name={'Projects'} size={this.state.projectList.length} buttonText={'Create New Project'} link={'/createproject'}>
                         <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
                     </Card> 
                 </div>

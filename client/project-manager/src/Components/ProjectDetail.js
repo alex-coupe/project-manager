@@ -38,8 +38,8 @@ export default class ProjectDetail extends Component {
             <div>   
               <Breadcrumb name={this.state.project.name} />
                 <div className="mt-5">
-                    <Card name={'Tasks'} size={this.state.taskList.length} buttonText={'Add New Task'}/>
-                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} />
+                    <Card name={'Tasks'} size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}/>
+                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}/>
                 </div>
             </div>
         )
