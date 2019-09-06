@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import FilterBar from './FilterBar'
 import {projectFilterOptions, projectTableOptions} from '../Util/ProjectsConfig'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-
+import Card from './Card'
 export default class Projects extends Component {
 
     constructor(props) {
@@ -32,14 +30,9 @@ export default class Projects extends Component {
         return (
             <div >
                 <div className="mt-5">
-                    <div id="overview" className="card" style={{width: 'auto'}}>
-                        <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
-                         Projects <span className="badge badge-dark">{this.state.projectList.length}</span></h2>
-                        <div className="card-body" style={{backgroundColor: "#fff6db"}}>
-                            <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
-                            <button className="btn btn-primary mx-auto" style={{display: 'block'}}>Create New Project</button>
-                        </div>
-                    </div> 
+                    <Card name={'Projects'} size={this.state.projectList.length} buttonText={'Create New Project'}>
+                        <FilterBar fetching={this.state.fetchingProjects} recordsPerPage={2} withFilter={true} data={this.state.projectList} filterOptions={projectFilterOptions} tableHeaderOptions={projectTableOptions} />
+                    </Card> 
                 </div>
             </div>
         )

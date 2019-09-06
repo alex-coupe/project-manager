@@ -10,6 +10,7 @@ export default class Card extends Component {
                     <h2 className="card-header text-center"><FontAwesomeIcon icon={faEdit}/> 
                         {this.props.name} <span className="badge badge-dark">{this.props.size}</span></h2>
                     <div className="card-body" style={{backgroundColor: "#fff6db"}}>
+                        <div>{this.props.children}</div>
                     <button className="btn btn-primary mx-auto" style={{display: 'block'}}>{this.props.buttonText}</button>
                     </div>
                 </div>
