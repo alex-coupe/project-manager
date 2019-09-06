@@ -31,6 +31,7 @@ namespace ProjectManager.Models
         [DataType(DataType.Date)]
         public DateTime DateAssigned {get; set;} 
 
+        [Required]
         public bool Completed {get; set;} = false;
         
          [DataType(DataType.Date)]

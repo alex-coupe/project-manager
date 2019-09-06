@@ -20,14 +20,12 @@ export default class Projects extends Component {
         .then(response => response.json())
         .then (json => {
             this.setState({
-                projectList: json
+                projectList: json,
+                fetchingProjects: false
             });
         })
         .catch(error => console.log(error)
         );
-        this.setState({
-            fetchingProjects: false
-        });
     }
 
     render() {

@@ -11,17 +11,14 @@ namespace ProjectManager.Models
         public long Id {get; set;}
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime CreatedDate {get; set;}
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime CompletionDate {get; set;}
-
-        [Required]
         [MaxLength(100)]
         [DataType(DataType.Text)]
         public string Name {get; set;}
+
+        [Required]
+        [MaxLength(500)]
+        [DataType(DataType.MultilineText)]
+        public string Description {get; set;}
 
         [Required]
         [MaxLength(100)]
@@ -29,9 +26,14 @@ namespace ProjectManager.Models
         public string Owner {get; set;}
 
         [Required]
-        [MaxLength(500)]
-        [DataType(DataType.MultilineText)]
-        public string Description {get; set;}
+        [DataType(DataType.Date)]
+        public virtual DateTime CreatedDate {get; set;}
+
+        [Required]
+        public bool Completed {get; set;} = false;
+
+        [DataType(DataType.Date)]
+        public virtual DateTime? CompletionDate {get; set;}
 
     }
 }
