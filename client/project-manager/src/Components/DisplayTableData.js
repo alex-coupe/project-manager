@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import ProjectDetail from './ProjectDetail'
+import {Link} from 'react-router-dom'
+
 
 export default class DisplayTableData extends Component {
 

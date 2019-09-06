@@ -1,7 +1,7 @@
 import React from 'react';
 import TopBar from './Components/TopBar'
 import Projects from './Components/Projects'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ProjectDetail from './Components/ProjectDetail'
 
 function App() {

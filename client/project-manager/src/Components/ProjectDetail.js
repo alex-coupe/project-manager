@@ -4,7 +4,7 @@ export default class ProjectDetail extends Component {
     render() {
         return (
             <div>
-                <h1>Hello</h1>
+                <h1>Hello {this.props.match.params.id}</h1>
             </div>
         )
     }
