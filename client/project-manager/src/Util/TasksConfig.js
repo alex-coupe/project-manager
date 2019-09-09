@@ -1,37 +1,52 @@
 const tasksFilterOptions = 
 [
-    
     {
-        header: 'Type',
-        body: [
-            '',
-            'Claim',
-            'Specification'
-        ]
-    },
-    {
-        header: 'Assigned',
+        header: 'Owner',
         body: [
             '',
             'Alex Coupe',
-            'Donald Duck',
-            'Peter Parker'
+            'Chili'
         ]
     },
-
     {
-        header: 'Priority',
+        header: 'Completed',
         body: [
             '',
-            'Normal',
-            'Urgent'
+            'true',
+            'false'
         ]
-    },
-   
+    }
 ]
 
-const tasksTableOptions = [
-    'Name', 'Reference', 'Type', 'Assigned', 'Priority', 'Due'
+const tasksTableOptions =  [
+    {
+        displayName: 'Project ID',
+        dataName: 'projectId'
+    },
+    {
+        displayName: 'Name',
+        dataName: 'name'
+    },
+    {
+        displayName: 'Task Description',
+        dataName: 'description'
+    },
+    {
+        displayName: 'Assigned To',
+        dataName: 'assignedTo'
+    },
+    {
+        displayName: 'Date Assigned',
+        dataName: 'dateAssigned'
+    },
+    {
+        displayName: 'Task Completed',
+        dataName: 'completed'
+    },
+    {
+        displayName: 'Completion Date',
+        dataName: 'completedDate'
+    },
 ]
 
 module.exports = {

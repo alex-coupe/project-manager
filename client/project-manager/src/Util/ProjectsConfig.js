@@ -42,9 +42,6 @@ const projectTableOptions = [
         displayName: 'Completion Date',
         dataName: 'completionDate'
     },
-   
-   
-   
 ]
 
 module.exports = {

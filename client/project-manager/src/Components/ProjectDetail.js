@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Breadcrumb from './Breadcrumb'
 import Card from './Card'
+import {Link} from 'react-router-dom'
+import {tasksFilterOptions, tasksTableOptions} from '../Util/TasksConfig'
+import FilterBar from './FilterBar'
 
 export default class ProjectDetail extends Component {
 
@@ -44,7 +47,7 @@ export default class ProjectDetail extends Component {
 
     render() {
 
-       const {createdDate,description,name,completionDate,completed} = this.state.project;
+       const {createdDate,description,name,completionDate,completed,id} = this.state.project;
 
         return (
             <div>   
@@ -52,10 +55,13 @@ export default class ProjectDetail extends Component {
                 <div className="mt-3">
                     <p className="text-center">{description}</p>
                     <p className="text-center"><strong>Created: </strong>{createdDate}</p>
-                    {completed ? <p className="text-center"><strong>Created: </strong>{completionDate}</p> : null}
-                    <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}/>
+                    {completed ? <p className="text-center"><strong>Completed: </strong>{completionDate}</p> : null}
+                    <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}>
+                        <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
+                    </Card>
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}/>
-                   <button onClick={this.deleteProject} className="btn btn-danger">Delete Project</button>
+                   <button onClick={this.deleteProject} className="float-right btn btn-danger">Delete Project</button>
+                   <Link to={`/editproject/${id}`} className="float-right btn mr-3 btn-secondary">Edit Project</Link>
                 </div>
             </div>
         )
