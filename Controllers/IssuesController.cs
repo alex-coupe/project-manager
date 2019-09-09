@@ -17,14 +17,24 @@ namespace ProjectManager.Models
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues(long projectId)
+        [HttpGet("/api/projects/issues/{id}")]
+        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues(long id)
         {
-            var issues = await _context.Issues.AsNoTracking().Where(issue => issue.ProjectId == projectId).ToListAsync();
+            var issues = await _context.Issues.AsNoTracking().Where(issue => issue.ProjectId == id).ToListAsync();
             return issues;
         }
 
-       
+        
+        [HttpGet("/api/issues/{id}")]
+        public async Task<ActionResult<Issue>> GetIssue(long id)
+        {
+            var issueDetails = await _context.Issues.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+
+            if (issueDetails == null)
+                return NotFound();
+
+            return issueDetails;
+        }
 
         [HttpPost]
         public async Task<ActionResult<Issue>> AddIssue(Issue issue)
