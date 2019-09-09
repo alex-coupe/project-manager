@@ -1,7 +1,7 @@
 const tasksFilterOptions = 
 [
     {
-        header: 'Owner',
+        header: 'Assigned To',
         body: [
             '',
             'Alex Coupe',

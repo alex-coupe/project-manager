@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Breadcrumb from './Breadcrumb'
 import Card from './Card'
 import {Link} from 'react-router-dom'
+import {issuesFilterOptions, issuesTableOptions} from '../Util/IssuesConfig'
 import {tasksFilterOptions, tasksTableOptions} from '../Util/TasksConfig'
 import FilterBar from './FilterBar'
 
@@ -59,8 +60,10 @@ export default class ProjectDetail extends Component {
                     <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}>
                         <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
                     </Card>
-                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}/>
-                   <button onClick={this.deleteProject} className="float-right btn btn-danger">Delete Project</button>
+                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}>
+                        <FilterBar fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
+                    </Card>
+                   <button onClick={this.deleteProject} className="float-right btn btn-danger mb-3">Delete Project</button>
                    <Link to={`/editproject/${id}`} className="float-right btn mr-3 btn-secondary">Edit Project</Link>
                 </div>
             </div>
