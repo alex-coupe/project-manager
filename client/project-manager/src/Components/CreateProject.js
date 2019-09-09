@@ -72,6 +72,7 @@ export default class CreateProject extends Component {
                             <label>
                                 Assigned User
                                 <select name="owner" className="form-control" value={this.state.owner} onChange={this.handleChange}>
+                                    <option> </option>
                                     {this.state.users.map(user => {
                                         return <option key={user.id}>{user.name}</option>
                                     })}

@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {issuesFilterOptions, issuesTableOptions} from '../Util/IssuesConfig'
 import {tasksFilterOptions, tasksTableOptions} from '../Util/TasksConfig'
 import FilterBar from './FilterBar'
+import { NavLink } from 'react-router-dom'
 
 export default class ProjectDetail extends Component {
 
@@ -63,7 +64,7 @@ export default class ProjectDetail extends Component {
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}>
                         <FilterBar fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
                     </Card>
-                   <button onClick={this.deleteProject} className="float-right btn btn-danger mb-3">Delete Project</button>
+                   <button onClick={this.deleteProject} className="float-right btn btn-danger mb-3"><NavLink to="/">Delete Project</NavLink></button>
                    <Link to={`/editproject/${id}`} className="float-right btn mr-3 btn-secondary">Edit Project</Link>
                 </div>
             </div>
