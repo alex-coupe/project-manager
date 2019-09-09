@@ -20,9 +20,9 @@ export default class ProjectDetail extends Component {
     componentDidMount() {
 
         Promise.all([
-            fetch(`http://localhost:5000/api/tasks/${this.props.match.params.id}`).then(value=> value.json()),
+            fetch(`http://localhost:5000/api/projects/tasks/${this.props.match.params.id}`).then(value=> value.json()),
             fetch(`http://localhost:5000/api/projects/${this.props.match.params.id}`).then(value=> value.json()),
-            fetch(`http://localhost:5000/api/issues/${this.props.match.params.id}`).then(value=> value.json())
+            fetch(`http://localhost:5000/api/projects/issues/${this.props.match.params.id}`).then(value=> value.json())
             ]).then((response) => {
                 this.setState({
                     taskList: response[0],

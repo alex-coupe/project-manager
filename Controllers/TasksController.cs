@@ -19,11 +19,22 @@ namespace ProjectManager.Controllers
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ProjectManager.Models.Task>>> GetTasks(long projectId)
+        [HttpGet("/api/projects/tasks/{id}")]
+        public async Task<ActionResult<IEnumerable<ProjectManager.Models.Task>>> GetTasks(long id)
         {
-           var tasks = await _context.Tasks.AsNoTracking().Where(task => task.ProjectId == projectId).ToListAsync();
+           var tasks = await _context.Tasks.AsNoTracking().Where(task => task.ProjectId == id).ToListAsync();
            return tasks;
+        }
+
+        [HttpGet("/api/tasks/{id}")]
+        public async Task<ActionResult<ProjectManager.Models.Task>> GetTask(long id)
+        {
+            var taskDetails = await _context.Tasks.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+
+            if (taskDetails == null)
+                return NotFound();
+
+            return taskDetails;
         }
 
         [HttpPost]

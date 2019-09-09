@@ -34,7 +34,7 @@ namespace ProjectManager.Models
         [Required]
         public bool Completed {get; set;} = false;
         
-         [DataType(DataType.Date)]
-        public DateTime CompletedDate {get; set;}
+        [DataType(DataType.Date)]
+        public DateTime? CompletedDate {get; set;}
     }
 }
