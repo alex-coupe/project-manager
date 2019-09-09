@@ -79,7 +79,7 @@ export default class Pagination extends Component {
                                 return (pagebutton)
                             })}
                             
-                            {this.state.currentPage !== this.state.finalPage ? <button id="nextPage"style={{border: '0',  background: 'none'}}  name="nextPage" onClick={this.handleClick}className="page-link" aria-label="Next">
+                            {this.state.currentPage < this.state.finalPage ? <button id="nextPage"style={{border: '0',  background: 'none'}}  name="nextPage" onClick={this.handleClick}className="page-link" aria-label="Next">
                                 <span aria-hidden="true"><FontAwesomeIcon icon={faChevronRight} /></span>
                             </button> : <button name="nextPage" onClick={this.handleClick}className="btn disabled" aria-label="Next" disabled>
                                 <span aria-hidden="true"><FontAwesomeIcon icon={faChevronRight} /></span>
