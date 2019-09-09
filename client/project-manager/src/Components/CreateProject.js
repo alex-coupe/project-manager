@@ -11,7 +11,7 @@ export default class CreateProject extends Component {
             owner: '',
             users: [],
             description: '',
-            assignedDate: '' 
+            createdDate: '' 
         }
     }
 
@@ -30,7 +30,7 @@ export default class CreateProject extends Component {
     }
 
     handleSubmit = (event) => {
-        const {name,owner,description,assignedDate} = this.state;
+        const {name,owner,description,createdDate} = this.state;
         event.preventDefault();
         fetch('http://localhost:5000/api/projects',{
             method:'POST',
@@ -38,7 +38,7 @@ export default class CreateProject extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name, description, owner, assignedDate})
+            body: JSON.stringify({name, description, owner, createdDate})
         }).then(response => response.json())
         .catch(error => console.log(error));
 
@@ -46,7 +46,7 @@ export default class CreateProject extends Component {
             name: '',
             owner: '',
             description: '',
-            assignedDate: ''
+            createdDate: ''
         });
     }
 
@@ -54,7 +54,7 @@ export default class CreateProject extends Component {
         return (
             <div>
                 <Breadcrumb name={'Create A New Project'}/>
-                <div className="mx-auto">
+                <div className="mx-auto text-center">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
@@ -65,7 +65,7 @@ export default class CreateProject extends Component {
                         <div className="form-group row justify-content-center">
                             <label>
                                 Project Description
-                                <textarea placeholder="Enter a short project description" maxLength="200" cols="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
+                                <textarea placeholder="Enter a short project description" maxLength="200" cols="50" rows="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
@@ -80,7 +80,7 @@ export default class CreateProject extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>Created Date
-                                <input type="date" className="form-control" value={this.state.assignedDate} onChange={this.handleChange} name="assignedDate" />
+                                <input type="date" className="form-control" value={this.state.createdDate} onChange={this.handleChange} name="createdDate" />
                             </label>
                         </div>
                         <div className="row justify-content-center">
