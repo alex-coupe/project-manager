@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectManager.Models;
+using System.Linq;
 
 namespace ProjectManager.Models
 {
@@ -16,22 +17,14 @@ namespace ProjectManager.Models
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues()
-        {
-            return await _context.Issues.AsNoTracking().ToListAsync();
-        }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<Issue>> GetIssue(long id)
+        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues(long projectId)
         {
-            var issue = await _context.Issues.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
-
-            if (issue == null)
-                return NotFound();
-
-            return issue;
+            var issues = await _context.Issues.AsNoTracking().Where(issue => issue.ProjectId == projectId).ToListAsync();
+            return issues;
         }
+
+       
 
         [HttpPost]
         public async Task<ActionResult<Issue>> AddIssue(Issue issue)

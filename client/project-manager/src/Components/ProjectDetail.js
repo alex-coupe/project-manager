@@ -12,7 +12,8 @@ export default class ProjectDetail extends Component {
             project: {},
             issuesList: [],
             fetchingTasks: true,
-            fetchingIssues: true
+            fetchingIssues: true,
+            redirect: false
         }
     }
 
@@ -33,13 +34,28 @@ export default class ProjectDetail extends Component {
             }).catch(error => console.log(error));
     }
 
+    deleteProject = () => {
+        fetch(`http://localhost:5000/api/projects/${this.state.project.id}`,
+        {
+            method:'DELETE'
+        }).then(response => response.json())
+        .catch(error => console.log(error));
+    }
+
     render() {
+
+       const {createdDate,description,name,completionDate,completed} = this.state.project;
+
         return (
             <div>   
-              <Breadcrumb name={this.state.project.name} />
-                <div className="mt-5">
-                    <Card name={'Tasks'} size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}/>
+              <Breadcrumb name={name} />
+                <div className="mt-3">
+                    <p className="text-center">{description}</p>
+                    <p className="text-center"><strong>Created: </strong>{createdDate}</p>
+                    {completed ? <p className="text-center"><strong>Created: </strong>{completionDate}</p> : null}
+                    <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={'/createtask'}/>
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}/>
+                   <button onClick={this.deleteProject} className="btn btn-danger">Delete Project</button>
                 </div>
             </div>
         )

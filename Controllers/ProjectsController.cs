@@ -42,7 +42,7 @@ namespace ProjectManager.Controllers
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("PostProject", new {id = project.Id}, project);
+            return CreatedAtAction("AddProject", new {id = project.Id}, project);
         }
 
         [HttpPut("{id}")]
