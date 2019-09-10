@@ -87,7 +87,7 @@ export default class FilterBar extends Component {
         return (
             <div>
                 {this.props.withFilter ? filterBar : null}
-                {this.props.fetching ? <Spinner /> : <Pagination recordsPerPage={this.props.recordsPerPage} filteredData={this.state.filteredData} tableHeaderOptions={this.props.tableHeaderOptions}/>}   
+                {this.props.fetching ? <Spinner /> : <Pagination name={this.props.name} recordsPerPage={this.props.recordsPerPage} filteredData={this.state.filteredData} tableHeaderOptions={this.props.tableHeaderOptions}/>}   
             </div>
         )
     }

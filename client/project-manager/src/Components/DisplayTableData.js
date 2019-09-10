@@ -47,7 +47,7 @@ export default class DisplayTableData extends Component {
                             //Capitalise first letter
                             const lower = String (element[i]);
                             const upper = lower.charAt(0).toUpperCase() + lower.substring(1);
-                            items.push(<td key={id}><Link to={`/project/${element[0]}`}>{upper}</Link></td>);
+                            items.push(<td key={id}><Link to={`/${this.props.name}/${element[0]}`}>{upper}</Link></td>);
 
                             id++;
                         } else {

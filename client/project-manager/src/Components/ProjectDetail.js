@@ -59,10 +59,10 @@ export default class ProjectDetail extends Component {
                     <p className="text-center"><strong>Created: </strong>{createdDate}</p>
                     {completed ? <p className="text-center"><strong>Completed: </strong>{completionDate}</p> : null}
                     <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={`/createtask/${id}`}>
-                        <FilterBar fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
+                        <FilterBar name='tasks' fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
                     </Card>
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}>
-                        <FilterBar fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
+                        <FilterBar name='issues' fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
                     </Card>
                    <button onClick={this.deleteProject} className="float-right btn btn-danger mb-3 "><NavLink to="/" className="text-white">Delete Project</NavLink></button>
                    <Link to={`/editproject/${id}`} className="float-right btn mr-3 btn-secondary text-white">Edit Project</Link>
