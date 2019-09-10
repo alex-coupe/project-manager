@@ -37,7 +37,7 @@ export default class CreateProject extends Component {
     }
 
     handleSubmit = (event) => {
-        const {name,assignedTo,description,dateAssigned} = this.state;
+        const {name,assignedTo,description,dateAssigned, projectId} = this.state;
         event.preventDefault();
         fetch('http://localhost:5000/api/tasks',{
             method:'POST',
@@ -45,7 +45,7 @@ export default class CreateProject extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name, description, assignedTo, dateAssigned})
+            body: JSON.stringify({name, description, assignedTo, dateAssigned, projectId})
         }).then(response => response.json())
         .catch(error => console.log(error));
 
@@ -95,7 +95,7 @@ export default class CreateProject extends Component {
                                 <input type="date" className="form-control" value={this.state.dateAssigned} onChange={this.handleChange} name="dateAssigned" />
                             </label>
                         </div>
-                        <input type="number" name="projectId" value={this.state.projectId} onChange={this.handleChange}/>
+                        <input type="hidden" name="projectId" value={this.state.projectId} onChange={this.handleChange}/>
                         <div className="row justify-content-center">
                             <input type="submit" className="btn btn-primary" value="Submit" />
                         </div>
