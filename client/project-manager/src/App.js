@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ProjectDetail from './Components/ProjectDetail'
 import CreateProject from './Components/CreateProject'
 import CreateTask from './Components/CreateTask'
+import CreateIssue from './Components/CreateIssue'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/" component={Projects} />
       <Route path="/project/:id" component={ProjectDetail} /> 
       <Route path="/createtask/:id" component={CreateTask} />
+      <Route path="/createissue/:id" component={CreateIssue} />
       <Route path="/createproject" component={CreateProject} />
       </Router>
       </div>

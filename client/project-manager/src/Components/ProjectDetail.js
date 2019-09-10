@@ -61,7 +61,7 @@ export default class ProjectDetail extends Component {
                     <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={`/createtask/${id}`}>
                         <FilterBar name='tasks' fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
                     </Card>
-                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={'/createissue'}>
+                    <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={`/createissue/${id}`}>
                         <FilterBar name='issues' fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
                     </Card>
                    <button onClick={this.deleteProject} className="float-right btn btn-danger mb-3 "><NavLink to="/" className="text-white">Delete Project</NavLink></button>

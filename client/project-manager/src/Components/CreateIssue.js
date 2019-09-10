@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import {Link} from 'react-router-dom'
 
 export default class CreateProject extends Component {
@@ -8,10 +9,10 @@ export default class CreateProject extends Component {
 
         this.state = {
             name: '',
-            assignedTo: '',
+            loggedBy: '',
             users: [],
             description: '',
-            dateAssigned: '' ,
+            severity: '' ,
             projectId: '',
             project: {}
         }
@@ -36,23 +37,23 @@ export default class CreateProject extends Component {
     }
 
     handleSubmit = (event) => {
-        const {name,assignedTo,description,dateAssigned, projectId} = this.state;
+        const {name,loggedBy,description,severity, projectId, resolved} = this.state;
         event.preventDefault();
-        fetch('http://localhost:5000/api/tasks',{
+        fetch('http://localhost:5000/api/issues',{
             method:'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name, description, assignedTo, dateAssigned, projectId})
+            body: JSON.stringify({name, description, loggedBy, severity, projectId, resolved})
         }).then(response => response.json())
         .catch(error => console.log(error));
 
         this.setState({
             name: '',
-            assignedTo: '',
+            loggedBy: '',
             description: '',
-            dateAssigned: '',
+            severity: '',
         });
     }
 
@@ -61,27 +62,27 @@ export default class CreateProject extends Component {
             <div>
                  <nav aria-label="breadcrumb" className="mt-3">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item mx-auto" aria-current="page"><h1><Link to="/">Projects</Link> / <Link to={`/project/${this.state.project.id}`}>{this.state.project.name}</Link> / Add Task</h1></li>
+                        <li className="breadcrumb-item mx-auto" aria-current="page"><h1><Link to="/">Projects</Link> / <Link to={`/project/${this.state.project.id}`}>{this.state.project.name}</Link> / Add Issue</h1></li>
                     </ol>
                 </nav>
                 <div className="mx-auto text-center">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Task Name
-                                <input placeholder="Task Name" className="form-control" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
+                                Issue Name
+                                <input placeholder="Issue Name" className="form-control" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Task Description
-                                <textarea placeholder="Enter a short task description" maxLength="200" cols="50" rows="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
+                                Issue Description
+                                <textarea placeholder="Enter a short issue description" maxLength="200" cols="50" rows="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                               Assigned User
-                                <select name="assignedTo" className="form-control" value={this.state.assignedTo} onChange={this.handleChange}>
+                               Logged By
+                                <select name="loggedBy" className="form-control" value={this.state.loggedBy} onChange={this.handleChange}>
                                     <option> </option>
                                     {this.state.users.map(user => {
                                         return <option key={user.id}>{user.name}</option>
@@ -90,8 +91,13 @@ export default class CreateProject extends Component {
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
-                            <label>Created Date
-                                <input type="date" className="form-control" value={this.state.dateAssigned} onChange={this.handleChange} name="dateAssigned" />
+                            <label>Severity
+                                <select className="form-control" value={this.state.severity} onChange={this.handleChange} name="severity">
+                                    <option> </option> 
+                                    <option>Low</option>    
+                                    <option>Medium</option>
+                                    <option>High</option>
+                                </select>
                             </label>
                         </div>
                         <input type="hidden" name="projectId" value={this.state.projectId} onChange={this.handleChange}/>
