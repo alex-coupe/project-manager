@@ -4,6 +4,7 @@ import Projects from './Components/Projects'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ProjectDetail from './Components/ProjectDetail'
 import CreateProject from './Components/CreateProject'
+import CreateTask from './Components/CreateTask'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
      <Router>
       <Route exact path="/" component={Projects} />
       <Route path="/project/:id" component={ProjectDetail} /> 
+      <Route path="/createtask/:id" component={CreateTask} />
       <Route path="/createproject" component={CreateProject} />
       </Router>
       </div>
