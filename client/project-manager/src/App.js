@@ -6,6 +6,7 @@ import ProjectDetail from './Components/ProjectDetail'
 import CreateProject from './Components/CreateProject'
 import CreateTask from './Components/CreateTask'
 import CreateIssue from './Components/CreateIssue'
+import TaskDetail from './Components/TaskDetail'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
      <Router>
       <Route exact path="/" component={Projects} />
       <Route path="/project/:id" component={ProjectDetail} /> 
+      <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/createtask/:id" component={CreateTask} />
       <Route path="/createissue/:id" component={CreateIssue} />
       <Route path="/createproject" component={CreateProject} />
