@@ -1,13 +1,5 @@
 const projectFilterOptions = [
     {
-        header: 'Owner',
-        body: [
-            '',
-            'Alex Coupe',
-            'Chili'
-        ]
-    },
-    {
         header: 'Completed',
         body: [
             '',

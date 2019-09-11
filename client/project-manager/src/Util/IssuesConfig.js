@@ -1,14 +1,6 @@
 const issuesFilterOptions = 
 [
     {
-        header: 'Logger',
-        body: [
-            '',
-            'Alex Coupe',
-            'Chili'
-        ]
-    },
-    {
         header: 'Severity',
         body: [
             '',

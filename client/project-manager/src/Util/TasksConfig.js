@@ -1,14 +1,6 @@
 const tasksFilterOptions = 
 [
     {
-        header: 'Assigned To',
-        body: [
-            '',
-            'Alex Coupe',
-            'Chili'
-        ]
-    },
-    {
         header: 'Completed',
         body: [
             '',
