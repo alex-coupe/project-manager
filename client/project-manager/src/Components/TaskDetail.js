@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 
 export default class TaskDetail extends Component {
 
@@ -7,34 +7,42 @@ export default class TaskDetail extends Component {
         super(props)
 
         this.state={
-            fetchingTasks: true,
-            project: {},
             task: {}
         }
     }
 
     componentDidMount() {
-        Promise.all([
-            fetch(`http://localhost:5000/api/tasks/${this.props.match.params.id}`).then(value=> value.json()),
-            fetch(`http://localhost:5000/api/projects/17`).then(value=> value.json()),
-            ]).then((response) => {
-                this.setState({
-                    task: response[0],
-                    fetchingTasks: false,
-                    project: response[1],
-                });
-            }).catch(error => console.log(error));
+        fetch(`http://localhost:5000/api/tasks/${this.props.match.params.id}`)
+        .then(response => response.json())
+        .then (json => {
+            this.setState({
+                task: json,
+            });
+        })
+        .catch(error => console.log(error)
+        );
+    }
+
+    deleteTask = () => {
+        fetch(`http://localhost:5000/api/tasks/${this.state.task.id}`,
+        {
+            method:'DELETE'
+        }).then(response => response.json())
+        .catch(error => console.log(error));
     }
 
     render() {
-        const {task,project} = this.state;
+        const {task} = this.state;
         return (
             <div>
                 <nav aria-label="breadcrumb" className="mt-3">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item mx-auto" aria-current="page"><h1><Link to="/">Projects</Link> / <Link to={`/project/${task.projectId}`}>{project.name}</Link> / {task.name}</h1></li>
+                        <li className="breadcrumb-item mx-auto" aria-current="page"><h1>{task.name}</h1></li>
                     </ol>
                 </nav>
+                <p className="text-center"><button onClick={this.deleteTask} className="btn btn-danger mr-3 mb-3"><NavLink to={`/project/${task.projectId}`} className="text-white">Delete Task</NavLink></button>
+                <Link to={`/edittask/${task.id}`} className="btn mb-3 btn-secondary text-white">Edit Task</Link></p>
+                <button className="btn btn-primary"><Link className="text-white" to={`/project/${task.projectId}`}> Back </Link></button>
             </div>
         )
     }
