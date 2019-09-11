@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Breadcrumb from './Breadcrumb'
+import {Link} from 'react-router-dom'
 
-export default class CreateProject extends Component {
-
+export default class EditProject extends Component {
     constructor(props){
         super(props)
 
@@ -11,7 +11,11 @@ export default class CreateProject extends Component {
             owner: '',
             users: [],
             description: '',
-            createdDate: '' 
+            createdDate: '',
+            completed: '',
+            completionDate: '',
+            project: {},
+            id: ''
         }
     }
 
@@ -20,25 +24,33 @@ export default class CreateProject extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/api/users')
-        .then(response => response.json())
-        .then(json => {
+        Promise.all([
+        fetch(`http://localhost:5000/api/projects/${this.props.match.params.id}`).then(value=> value.json()),
+        fetch('http://localhost:5000/api/users').then(value=> value.json())
+        ]).then((response) => {
             this.setState({
-            users: json
+                project: response[0],
+                users: response[1],
+                name: response[0].name,
+                owner: response[0].owner,
+                description: response[0].description,
+                createdDate: response[0].createdDate,
+                completed: response[0].completed,
+                id: response[0].id
             });
         }).catch(error => console.log(error));
     }
 
     handleSubmit = (event) => {
-        const {name,owner,description,createdDate} = this.state;
+        const {name,owner,description,createdDate, completed, completionDate, id} = this.state;
         event.preventDefault();
-        fetch('http://localhost:5000/api/projects',{
-            method:'POST',
+        fetch(`http://localhost:5000/api/projects/${this.props.match.params.id}`,{
+            method:'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name, description, owner, createdDate})
+            body: JSON.stringify({name, description, owner, createdDate, completed, completionDate, id})
         }).then(response => response.json())
         .catch(error => console.log(error));
 
@@ -46,14 +58,16 @@ export default class CreateProject extends Component {
             name: '',
             owner: '',
             description: '',
-            createdDate: ''
+            createdDate: '',
+            completed: false,
+            completionDate: '',
         });
     }
 
     render() {
         return (
             <div>
-                <Breadcrumb name='Create A New Project'/>
+                <Breadcrumb name='Edit Project'/>
                 <div className="mx-auto text-center">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
@@ -70,7 +84,7 @@ export default class CreateProject extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Assigned User
+                                Owner
                                 <select name="owner" className="form-control" value={this.state.owner} onChange={this.handleChange}>
                                     <option> </option>
                                     {this.state.users.map(user => {
@@ -80,14 +94,32 @@ export default class CreateProject extends Component {
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
-                            <label>Created Date
-                                <input type="date" className="form-control" value={this.state.createdDate} onChange={this.handleChange} name="createdDate" />
+                            <label>
+                                Created Date
+                                <input type="text" value={this.state.createdDate} name="createdDate" className="form-control" disabled /> 
+                            </label>
+                        </div>
+                        <div className="form-group row justify-content-center">
+                            <label>
+                                Completed
+                                <select name="completed" className="form-control" value={this.state.completed} onChange={this.handleChange}>
+                                    <option></option>
+                                    <option>true</option>
+                                    <option>false</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div className="form-group row justify-content-center">
+                            <label>
+                                Date Completed
+                                <input type="date" className="form-control" value={this.state.completionDate} onChange={this.handleChange} name="completionDate" />
                             </label>
                         </div>
                         <div className="row justify-content-center">
-                            <input type="submit" className="btn btn-primary" value="Submit" />
+                            <input type="submit" className="btn btn-secondary" value="Update" />
                         </div>
                     </form>
+                    <Link className="text-white float-right btn btn-primary" to={`/project/${this.state.id}`}> Back </Link>
                 </div>
             </div>
         )

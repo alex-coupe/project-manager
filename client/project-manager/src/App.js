@@ -8,6 +8,7 @@ import CreateTask from './Components/CreateTask'
 import CreateIssue from './Components/CreateIssue'
 import TaskDetail from './Components/TaskDetail'
 import IssueDetail from './Components/IssueDetail'
+import EditProject from './Components/EditProject';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
      <Router>
       <Route exact path="/" component={Projects} />
       <Route path="/project/:id" component={ProjectDetail} /> 
+      <Route path="/editproject/:id" component={EditProject} /> 
       <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/issues/:id" component={IssueDetail} />
       <Route path="/createtask/:id" component={CreateTask} />
