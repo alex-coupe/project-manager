@@ -33,7 +33,7 @@ const issuesTableOptions =  [
         dataName: 'description'
     },
     {
-        displayName: 'Serverity',
+        displayName: 'Severity',
         dataName: 'severity'
     },
     {
