@@ -35,7 +35,6 @@ namespace ProjectManager.Controllers
             return projectDetails;
         }
         
-        [EnableCors("MyPolicy")]
         [HttpPost]
         public async Task<ActionResult<Project>> AddProject(Project project)
         {
