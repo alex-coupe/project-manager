@@ -63,7 +63,7 @@ export default class Pagination extends Component {
         return (
             <React.Fragment>
                 <table className="table table-hover table-bordered">
-                    <TableHeader name={this.props.name} fetching={this.props.fetching} tableHeaderOptions={this.props.tableHeaderOptions} paginatedData={this.state.paginatedData}/> 
+                    <TableHeader startAt={this.props.startAt} name={this.props.name} fetching={this.props.fetching} tableHeaderOptions={this.props.tableHeaderOptions} paginatedData={this.state.paginatedData}/> 
                 </table>
                        
                 <div> 

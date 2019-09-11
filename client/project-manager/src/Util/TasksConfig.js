@@ -12,10 +12,6 @@ const tasksFilterOptions =
 
 const tasksTableOptions =  [
     {
-        displayName: 'Project ID',
-        dataName: 'projectId'
-    },
-    {
         displayName: 'Name',
         dataName: 'name'
     },

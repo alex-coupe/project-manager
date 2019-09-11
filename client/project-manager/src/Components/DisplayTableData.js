@@ -40,7 +40,7 @@ export default class DisplayTableData extends Component {
                 {data.map(element => {
                     items = [];
                    
-                    for (let i = 1; i < element.length; i++)
+                    for (let i = this.props.startAt; i < element.length; i++)
                     {
                         //Any nulls aren't rendered
                         if (String (element[i]) !== 'null'){

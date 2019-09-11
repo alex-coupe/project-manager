@@ -65,11 +65,11 @@ export default class ProjectDetail extends Component {
                     <span><Link className="text-white float-right ml-3 mb-3 btn btn-primary" to="/"> Back </Link></span>
                     {this.state.deletedProject ? null :
                     <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={`/createtask/${id}`}>
-                        <FilterBar name='tasks' fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
+                        <FilterBar startAt={2} name='tasks' fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
                     </Card>}
                     {this.state.deletedProject ? null :
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={`/createissue/${id}`}>
-                        <FilterBar name='issues' fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
+                        <FilterBar startAt={2} name='issues' fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
                     </Card>}
                   
                 </div>

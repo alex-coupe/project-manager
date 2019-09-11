@@ -21,10 +21,6 @@ const issuesFilterOptions =
 
 const issuesTableOptions =  [
     {
-        displayName: 'Project ID',
-        dataName: 'projectId'
-    },
-    {
         displayName: 'Name',
         dataName: 'name'
     },
