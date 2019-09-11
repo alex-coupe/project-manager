@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 import {issuesFilterOptions, issuesTableOptions} from '../Util/IssuesConfig'
 import {tasksFilterOptions, tasksTableOptions} from '../Util/TasksConfig'
 import FilterBar from './FilterBar'
-import { NavLink } from 'react-router-dom'
 
 export default class ProjectDetail extends Component {
 
@@ -18,7 +17,7 @@ export default class ProjectDetail extends Component {
             issuesList: [],
             fetchingTasks: true,
             fetchingIssues: true,
-            redirect: false
+            deletedProject: false
         }
     }
 
@@ -45,6 +44,9 @@ export default class ProjectDetail extends Component {
             method:'DELETE'
         }).then(response => response.json())
         .catch(error => console.log(error));
+        this.setState({
+            deletedProject: true
+        })
     }
 
     render() {
@@ -58,15 +60,17 @@ export default class ProjectDetail extends Component {
                     <p className="text-center">{description}</p>
                     <p className="text-center"><strong>Created: </strong>{createdDate}</p>
                     {completed ? <p className="text-center"><strong>Completed: </strong>{completionDate}</p> : null}
-                    <p className="text-center"><button onClick={this.deleteProject} className="btn btn-danger mr-3 mb-3"><NavLink to="/" className="text-white">Delete Project</NavLink></button>
-                    <Link to={`/editproject/${id}`} className="btn mb-3 btn-secondary text-white">Edit Project</Link></p>
-                    
+                    {this.state.deletedProject ? null : <span> <button onClick={this.deleteProject} className="btn btn-danger mr-3 mb-3">Delete Project</button></span>}
+                    {this.state.deletedProject ? null : <span> <Link to={`/editproject/${id}`} className="btn mb-3 btn-secondary text-white">Edit Project</Link></span>} 
+                    <span><Link className="text-white float-right ml-3 mb-3 btn btn-primary" to="/"> Back </Link></span>
+                    {this.state.deletedProject ? null :
                     <Card name={'Tasks'}  size={this.state.taskList.length} buttonText={'Add New Task'} link={`/createtask/${id}`}>
                         <FilterBar name='tasks' fetching={this.state.fetchingTasks} recordsPerPage={2} withFilter={true} data={this.state.taskList} filterOptions={tasksFilterOptions} tableHeaderOptions={tasksTableOptions} />
-                    </Card>
+                    </Card>}
+                    {this.state.deletedProject ? null :
                     <Card name={'Issues'} size={this.state.issuesList.length} buttonText={'Add New Issue'} link={`/createissue/${id}`}>
                         <FilterBar name='issues' fetching={this.state.fetchingIssues} recordsPerPage={2} withFilter={true} data={this.state.issuesList} filterOptions={issuesFilterOptions} tableHeaderOptions={issuesTableOptions} />
-                    </Card>
+                    </Card>}
                   
                 </div>
             </div>

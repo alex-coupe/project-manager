@@ -35,7 +35,7 @@ namespace ProjectManager
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .WithHeaders("content-type: application/json");
+                    .AllowAnyHeader();
             }));
         }
 

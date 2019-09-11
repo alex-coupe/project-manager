@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link, NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 export default class TaskDetail extends Component {
 
@@ -7,7 +7,8 @@ export default class TaskDetail extends Component {
         super(props)
 
         this.state={
-            task: {}
+            task: {},
+            deletedTask: false
         }
     }
 
@@ -24,6 +25,9 @@ export default class TaskDetail extends Component {
     }
 
     deleteTask = () => {
+        this.setState({
+            deletedTask: true
+        });
         fetch(`http://localhost:5000/api/tasks/${this.state.task.id}`,
         {
             method:'DELETE'
@@ -32,7 +36,7 @@ export default class TaskDetail extends Component {
     }
 
     render() {
-        const {task} = this.state;
+        const {task,deletedTask} = this.state;
         return (
             <div>
                 <nav aria-label="breadcrumb" className="mt-3">
@@ -40,9 +44,9 @@ export default class TaskDetail extends Component {
                         <li className="breadcrumb-item mx-auto" aria-current="page"><h1>{task.name}</h1></li>
                     </ol>
                 </nav>
-                <p className="text-center"><button onClick={this.deleteTask} className="btn btn-danger mr-3 mb-3"><NavLink to={`/project/${task.projectId}`} className="text-white">Delete Task</NavLink></button>
-                <Link to={`/edittask/${task.id}`} className="btn mb-3 btn-secondary text-white">Edit Task</Link></p>
-                <button className="btn btn-primary"><Link className="text-white" to={`/project/${task.projectId}`}> Back </Link></button>
+                {deletedTask ? null : <p className="text-center"><button onClick={this.deleteTask} className="btn btn-danger mr-3 mb-3">Delete Task</button></p>}
+                {deletedTask ? null : <Link to={`/edittask/${task.id}`} className="btn mb-3 btn-secondary text-white">Edit Task</Link>}
+                <Link className="text-white btn btn-primary" to={`/project/${task.projectId}`}> Back </Link>
             </div>
         )
     }
