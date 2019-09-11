@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import Breadcrumb from './Breadcrumb'
 
-export default class EditTask extends Component {
+export default class EditIssue extends Component {
     constructor(props){
         super(props)
 
@@ -10,11 +10,11 @@ export default class EditTask extends Component {
             name: '',
             description: '',
             users: [],
-            assignedTo: '',
-            dateAssigned: '',
-            completed: '',
-            completedDate: '',
-            task: {},
+            loggedBy: '',
+            resolved: '',
+            resolvedBy: '',
+            severity: '',
+            issue: {},
             id: '',
             projectId: ''
         }
@@ -26,17 +26,17 @@ export default class EditTask extends Component {
 
     componentDidMount() {
         Promise.all([
-        fetch(`http://localhost:5000/api/Tasks/${this.props.match.params.id}`).then(value=> value.json()),
+        fetch(`http://localhost:5000/api/issues/${this.props.match.params.id}`).then(value=> value.json()),
         fetch('http://localhost:5000/api/users').then(value=> value.json())
         ]).then((response) => {
             this.setState({
-                Task: response[0],
+                issue: response[0],
                 users: response[1],
                 name: response[0].name,
-                assignedTo: response[0].assignedTo,
+                loggedBy: response[0].loggedBy,
                 description: response[0].description,
-                dateAssigned: response[0].dateAssigned,
-                completed: response[0].completed,
+                severity: response[0].severity,
+                resolved: response[0].resolved,
                 id: response[0].id,
                 projectId: response[0].projectId
             });
@@ -44,50 +44,51 @@ export default class EditTask extends Component {
     }
 
     handleSubmit = (event) => {
-        const {name,assignedTo,description,dateAssigned, completed, completedDate, id, projectId} = this.state;
+        const {name,loggedBy,description,severity, id, projectId, resolvedBy, resolved} = this.state;
         event.preventDefault();
-        fetch(`http://localhost:5000/api/tasks/${this.props.match.params.id}`,{
+        fetch(`http://localhost:5000/api/issues/${this.props.match.params.id}`,{
             method:'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name, description, assignedTo, dateAssigned, completed, completedDate, id, projectId})
+            body: JSON.stringify({name, description, loggedBy, severity, id, projectId, resolvedBy, resolved})
         }).then(response => response.json())
         .catch(error => console.log(error));
 
         this.setState({
             name: '',
-            assignedTo: '',
+            loggedBy: '',
             description: '',
-            dateAssigned: '',
-            completed: false,
-            completedDate: '',
+            resolved: '',
+            severity: '',
+            resolvedDate: '',
+            resolvedBy: '',
         });
     }
 
     render() {
         return (
             <div>
-                <Breadcrumb name='Edit Task'/>
+                <Breadcrumb name='Edit Issue'/>
                 <div className="mx-auto text-center">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Task Name
-                                <input placeholder="Task Name" className="form-control" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
+                                Issue Name
+                                <input placeholder="Issue Name" className="form-control" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Task Description
-                                <textarea placeholder="Enter a short task description" maxLength="200" cols="50" rows="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
+                                Issue Description
+                                <textarea placeholder="Enter a short issue description" maxLength="200" cols="50" rows="4" className="form-control" value={this.state.description} name="description" onChange={this.handleChange} />
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Assigned To
-                                <select name="assignedTp" className="form-control" value={this.state.assignedTo} onChange={this.handleChange}>
+                                Logged By
+                                <select name="loggedBy" className="form-control" value={this.state.loggedBy} onChange={this.handleChange}>
                                     <option> </option>
                                     {this.state.users.map(user => {
                                         return <option key={user.id}>{user.name}</option>
@@ -97,14 +98,19 @@ export default class EditTask extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Assigned Date
-                                <input type="text" value={this.state.dateAssigned} name="dateAssigned" className="form-control" disabled /> 
+                                Severity
+                                <select name="severity" className="form-control" value={this.state.severity} onChange={this.handleChange}>
+                                    <option></option>
+                                    <option>Low</option>
+                                    <option>Medium</option>
+                                    <option>High</option>
+                                </select>
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Completed
-                                <select name="completed" className="form-control" value={this.state.completed} onChange={this.handleChange}>
+                                Resolved
+                                <select name="resolved" className="form-control" value={this.state.resolved} onChange={this.handleChange}>
                                     <option></option>
                                     <option>true</option>
                                     <option>false</option>
@@ -113,8 +119,13 @@ export default class EditTask extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                             <label>
-                                Date Completed
-                                <input type="date" className="form-control" value={this.state.completedDate} onChange={this.handleChange} name="completedDate" />
+                                Resolved By
+                                <select name="resolvedBy" className="form-control" value={this.state.resolvedBy} onChange={this.handleChange}>
+                                    <option> </option>
+                                    {this.state.users.map(user => {
+                                        return <option key={user.id}>{user.name}</option>
+                                    })}
+                                </select>
                             </label>
                         </div>
                         <div className="row justify-content-center">

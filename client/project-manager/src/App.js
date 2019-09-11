@@ -10,6 +10,7 @@ import TaskDetail from './Components/TaskDetail'
 import IssueDetail from './Components/IssueDetail'
 import EditProject from './Components/EditProject';
 import EditTask from './Components/EditTask';
+import EditIssue from './Components/EditIssue';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/project/:id" component={ProjectDetail} /> 
       <Route path="/editproject/:id" component={EditProject} /> 
       <Route path="/edittask/:id" component={EditTask} /> 
+      <Route path="/editissue/:id" component={EditIssue} />
       <Route path="/tasks/:id" component={TaskDetail} />
       <Route path="/issues/:id" component={IssueDetail} />
       <Route path="/createtask/:id" component={CreateTask} />
