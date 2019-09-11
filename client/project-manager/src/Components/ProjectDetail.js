@@ -51,15 +51,16 @@ export default class ProjectDetail extends Component {
 
     render() {
 
-       const {createdDate,description,name,completionDate,completed,id} = this.state.project;
+       const {createdDate,description,name,completionDate,owner,completed,id} = this.state.project;
 
         return (
             <div>   
               <Breadcrumb name={name} />
                 <div className="mt-3">
-                    <p className="text-center">{description}</p>
+                    <p className="text-center"><strong>Description: </strong>{description}</p>
                     <p className="text-center"><strong>Created: </strong>{createdDate}</p>
-                    {completed ? <p className="text-center"><strong>Completed: </strong>{completionDate}</p> : null}
+                    <p className="text-center"><strong>Project Owner: </strong>{owner}</p>
+                    {completed ? <p className="text-center"><strong>Completed: </strong>{completionDate}</p> : <p className="text-center"><strong>Completed: </strong>Not Complete</p>}
                     {this.state.deletedProject ? null : <span> <button onClick={this.deleteProject} className="btn btn-danger mr-3 mb-3">Delete Project</button></span>}
                     {this.state.deletedProject ? null : <span> <Link to={`/editproject/${id}`} className="btn mb-3 btn-secondary text-white">Edit Project</Link></span>} 
                     <span><Link className="text-white float-right ml-3 mb-3 btn btn-primary" to="/"> Back </Link></span>

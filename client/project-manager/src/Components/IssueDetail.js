@@ -44,10 +44,10 @@ export default class IssueDetail extends Component {
                         <li className="breadcrumb-item mx-auto" aria-current="page"><h1>{issue.name}</h1></li>
                     </ol>
                 </nav>
-                <p className="text-center"><strong>Description : </strong> {issue.description}</p>
+                <p className="text-center"><strong>Description: </strong> {issue.description}</p>
                 <p className="text-center"><strong>Logged By: </strong>{issue.loggedBy}</p>
-                <p className="text-center"><strong>Severity : </strong>{issue.severity}</p>
-                {issue.resolved ? <p className="text-center"><strong>Resolved: </strong>{issue.resolvedBy}</p> : null}
+                <p className="text-center"><strong>Severity: </strong>{issue.severity}</p>
+                {issue.resolved ? <p className="text-center"><strong>Resolved: </strong>{issue.resolvedBy}</p> : <p className="text-center"><strong>Resolved: </strong>Not Resolved</p>}
                 {deletedissue ? null : <span className="text-center"><button onClick={this.deleteissue} className="btn btn-danger mr-3">Delete issue</button></span>}
                 {deletedissue ? null : <span><Link to={`/editissue/${issue.id}`} className="btn btn-secondary text-white">Edit issue</Link></span>}
                 <Link className="text-white float-right btn btn-primary" to={`/project/${issue.projectId}`}> Back </Link>

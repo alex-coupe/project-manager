@@ -44,9 +44,13 @@ export default class TaskDetail extends Component {
                         <li className="breadcrumb-item mx-auto" aria-current="page"><h1>{task.name}</h1></li>
                     </ol>
                 </nav>
-                {deletedTask ? null : <p className="text-center"><button onClick={this.deleteTask} className="btn btn-danger mr-3 mb-3">Delete Task</button></p>}
-                {deletedTask ? null : <Link to={`/edittask/${task.id}`} className="btn mb-3 btn-secondary text-white">Edit Task</Link>}
-                <Link className="text-white btn btn-primary" to={`/project/${task.projectId}`}> Back </Link>
+                <p className="text-center"><strong>Description: </strong> {task.description}</p>
+                <p className="text-center"><strong>Assigned To: </strong>{task.assignedTo}</p>
+                <p className="text-center"><strong>Date Assigned: </strong>{task.dateAssigned}</p>
+                {task.completed ? <p className="text-center"><strong>Completion Date: </strong>{task.completedDate}</p> :<p className="text-center"><strong>Completed: </strong>Not Complete</p>}
+                {deletedTask ? null : <span className="text-center"><button onClick={this.deleteTask} className="btn btn-danger mr-3">Delete Task</button></span>}
+                {deletedTask ? null : <span><Link to={`/edittask/${task.id}`} className="btn btn-secondary text-white">Edit Task</Link></span>}
+                <Link className="text-white float-right btn btn-primary" to={`/project/${task.projectId}`}> Back </Link>
             </div>
         )
     }
