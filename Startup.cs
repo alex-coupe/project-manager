@@ -37,6 +37,10 @@ namespace ProjectManager
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
+
+            services.AddSpaStaticFiles(configuration => {
+                configuration.RootPath = "client/project-manager/build";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
