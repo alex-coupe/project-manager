@@ -25,7 +25,7 @@ export default class CreateProject extends Component {
         });
     }
 
-    validateForm() {
+    validateForm = () =>  {
         let errors = [];
             
         if (this.state.name === '') {

@@ -16,12 +16,46 @@ export default class EditIssue extends Component {
             severity: '',
             issue: {},
             id: '',
-            projectId: ''
+            projectId: '',
+            errors : [],
+            success: null,
+            failed: null 
         }
     }
 
     handleChange = (event) => {
       this.setState({[event.target.name]: event.target.value});
+    }
+
+    validateForm = () => {
+        let errors = [];
+            
+        if (this.state.name === '') {
+            errors.push('Name Is Required'); 
+        }
+              
+        if (this.state.loggedBy === '') {
+             errors.push('Logger Name Is Required');
+        }
+               
+        if (this.state.description === '') { 
+            errors.push('Description Is Required'); 
+        }
+              
+        if (this.state.severity === '') {
+             errors.push('Severity Is Required'); 
+        }
+
+        if (this.state.resolved === 'true' && this.state.resolvedBy === '' ) {
+            errors.push('Must Confirm Who Resolved The Issue');
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+       return errors;
+               
     }
 
     componentDidMount() {
@@ -37,6 +71,7 @@ export default class EditIssue extends Component {
                 description: response[0].description,
                 severity: response[0].severity,
                 resolved: response[0].resolved,
+                resolvedBy: response[0].resolvedBy === null ? '' : response[0].resolvedBy,
                 id: response[0].id,
                 projectId: response[0].projectId
             });
@@ -46,25 +81,38 @@ export default class EditIssue extends Component {
     handleSubmit = (event) => {
         const {name,loggedBy,description,severity, id, projectId, resolvedBy, resolved} = this.state;
         event.preventDefault();
-        fetch(`http://localhost:5000/api/issues/${this.props.match.params.id}`,{
-            method:'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({name, description, loggedBy, severity, id, projectId, resolvedBy, resolved})
-        }).then(response => response.json())
-        .catch(error => console.log(error));
+        if (this.validateForm().length < 1) {
+            fetch(`http://localhost:5000/api/issues/${this.props.match.params.id}`,{
+                method:'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description, loggedBy, severity, id, projectId, resolvedBy, resolved})
+            }).then(response => {
+                if (response.status === 204) {
+                    this.setState({
+                        success:true
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    failed:true
+                });
+                console.log(error);
+            });
 
-        this.setState({
-            name: '',
-            loggedBy: '',
-            description: '',
-            resolved: '',
-            severity: '',
-            resolvedDate: '',
-            resolvedBy: '',
-        });
+            this.setState({
+                name: '',
+                loggedBy: '',
+                description: '',
+                resolved: '',
+                severity: '',
+                resolvedDate: '',
+                resolvedBy: '',
+            });
+        }
     }
 
     render() {
@@ -72,6 +120,9 @@ export default class EditIssue extends Component {
             <div>
                 <Breadcrumb name='Edit Issue'/>
                 <div className="mx-auto text-center">
+                {this.state.errors.length > 0 && this.state.errors.map((error, i) => {
+                    return (<div className='alert alert-danger' key={i}>{error}</div>)
+                })}
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
@@ -132,6 +183,8 @@ export default class EditIssue extends Component {
                             <input type="submit" className="btn btn-secondary" value="Update" />
                         </div>
                     </form>
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Issue Updated!</div> : null}
+                    {this.state.failed ? <div className='alert mt-3 alert-danger'>Oops Something Went Wrong</div> : null}
                     <Link className="text-white float-right btn btn-primary" to={`/project/${this.state.projectId}`}> Back </Link>
                 </div>
             </div>
