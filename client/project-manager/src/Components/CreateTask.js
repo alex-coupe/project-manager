@@ -13,12 +13,42 @@ export default class CreateProject extends Component {
             description: '',
             dateAssigned: '' ,
             projectId: '',
-            project: {}
+            project: {},
+            errors : [],
+            success: null,
+            failed: null 
         }
     }
 
     handleChange = (event) => {
       this.setState({[event.target.name]: event.target.value});
+    }
+
+    validateForm() {
+        let errors = [];
+            
+        if (this.state.name === '') {
+            errors.push('Name Is Required'); 
+        }
+              
+        if (this.state.assignedTo === '') {
+             errors.push('Assigned To Is Required');
+        }
+               
+        if (this.state.description === '') { 
+            errors.push('Description Is Required'); 
+        }
+              
+        if (this.state.dateAssigned === '') {
+             errors.push('Date Assigned Is Required'); 
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+       return errors;
+               
     }
 
     componentDidMount() {
@@ -38,22 +68,36 @@ export default class CreateProject extends Component {
     handleSubmit = (event) => {
         const {name,assignedTo,description,dateAssigned, projectId} = this.state;
         event.preventDefault();
-        fetch('http://localhost:5000/api/tasks',{
-            method:'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({name, description, assignedTo, dateAssigned, projectId})
-        }).then(response => response.json())
-        .catch(error => console.log(error));
+        if (this.validateForm().length < 1) {
+            fetch('http://localhost:5000/api/tasks',{
+                method:'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description, assignedTo, dateAssigned, projectId})
+            }).then(response => {
+                response.json();
+                if (response.status === 201) {
+                    this.setState({
+                        success:true
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    failed:true
+                });
+            });
 
-        this.setState({
-            name: '',
-            assignedTo: '',
-            description: '',
-            dateAssigned: '',
-        });
+            this.setState({
+                name: '',
+                assignedTo: '',
+                description: '',
+                dateAssigned: '',
+            });
+        }
     }
 
     render() {
@@ -65,6 +109,9 @@ export default class CreateProject extends Component {
                     </ol>
                 </nav>
                 <div className="mx-auto text-center">
+                    {this.state.errors.length > 0 && this.state.errors.map((error, i) => {
+                        return (<div className='alert alert-danger' key={i}>{error}</div>)
+                    })}
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
@@ -99,6 +146,8 @@ export default class CreateProject extends Component {
                             <input type="submit" className="btn btn-primary" value="Submit" />
                         </div>
                     </form>
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Task Created!</div> :null}
+                    {this.state.failed ? <div className='alert mt-3 alert-danger'>Oops Something Went Wrong</div> : null}
                 </div>
             </div>
         )
