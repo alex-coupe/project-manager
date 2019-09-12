@@ -15,12 +15,46 @@ export default class EditProject extends Component {
             completed: '',
             completionDate: '',
             project: {},
-            id: ''
+            id: '',
+            errors : [],
+            success: null,
+            failed: null 
         }
     }
 
     handleChange = (event) => {
       this.setState({[event.target.name]: event.target.value});
+    }
+
+    validateForm = () =>  {
+        let errors = [];
+            
+        if (this.state.name === '') {
+            errors.push('Name Is Required'); 
+        }
+              
+        if (this.state.owner === '') {
+             errors.push('Owner Is Required');
+        }
+               
+        if (this.state.description === '') { 
+            errors.push('Description Is Required'); 
+        }
+              
+        if (this.state.createdDate === '') {
+             errors.push('Created Date Is Required'); 
+        }
+
+        if (this.state.completed === 'true' && this.state.completionDate === '' ) {
+            errors.push('Must Confirm Completion Date');
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+       return errors;
+               
     }
 
     componentDidMount() {
@@ -44,24 +78,37 @@ export default class EditProject extends Component {
     handleSubmit = (event) => {
         const {name,owner,description,createdDate, completed, completionDate, id} = this.state;
         event.preventDefault();
-        fetch(`http://localhost:5000/api/projects/${this.props.match.params.id}`,{
-            method:'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({name, description, owner, createdDate, completed, completionDate, id})
-        }).then(response => response.json())
-        .catch(error => console.log(error));
+        if (this.validateForm().length < 1) {
+            fetch(`http://localhost:5000/api/projects/${this.props.match.params.id}`,{
+                method:'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description, owner, createdDate, completed, completionDate, id})
+            }).then(response => {
+                if (response.status === 204) {
+                    this.setState({
+                        success:true
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    failed:true
+                });
+                console.log(error);
+            });
 
-        this.setState({
-            name: '',
-            owner: '',
-            description: '',
-            createdDate: '',
-            completed: false,
-            completionDate: '',
-        });
+            this.setState({
+                name: '',
+                owner: '',
+                description: '',
+                createdDate: '',
+                completed: false,
+                completionDate: '',
+            });
+        }
     }
 
     render() {
@@ -69,6 +116,9 @@ export default class EditProject extends Component {
             <div>
                 <Breadcrumb name='Edit Project'/>
                 <div className="mx-auto text-center">
+                {this.state.errors.length > 0 && this.state.errors.map((error, i) => {
+                    return (<div className='alert alert-danger' key={i}>{error}</div>)
+                })}
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
@@ -119,6 +169,8 @@ export default class EditProject extends Component {
                             <input type="submit" className="btn btn-secondary" value="Update" />
                         </div>
                     </form>
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Project Updated!</div> : null}
+                    {this.state.failed ? <div className='alert mt-3 alert-danger'>Oops Something Went Wrong</div> : null}
                     <Link className="text-white float-right btn btn-primary" to={`/project/${this.state.id}`}> Back </Link>
                 </div>
             </div>
