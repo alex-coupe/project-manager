@@ -13,7 +13,8 @@ export default class CreateProject extends Component {
             description: '',
             createdDate: '',
             errors : [],
-            success: null          
+            success: null,
+            failed: null          
         }
     }
 
@@ -64,7 +65,6 @@ export default class CreateProject extends Component {
     handleSubmit = (event) => {
         const {name,owner,description,createdDate} = this.state;
         event.preventDefault();
-        console.log(this.validateForm().length)
         if (this.validateForm().length < 1) {
             fetch('http://localhost:5000/api/projects',{
                 method:'POST',
@@ -73,14 +73,16 @@ export default class CreateProject extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({name, description, owner, createdDate})
-            }).then(response => response.json()).then(() => {
+            }).then(response => {
+                response.json();
+                if (response.status === 201) {
+                    this.setState({
+                        success:true
+                    });
+                }
+            }).catch(error => {
                 this.setState({
-                    success:true
-                });
-            })
-            .catch(error => {
-                this.setState({
-                    success:false
+                    failed:true
                 });
                 console.log(error);
             });
@@ -90,12 +92,6 @@ export default class CreateProject extends Component {
                 owner: '',
                 description: '',
                 createdDate: '',
-                errors : {
-                    name: '',
-                    owner: '',
-                    description: '',
-                    createdDate: ''
-                }
             });
         }
     }
@@ -143,7 +139,8 @@ export default class CreateProject extends Component {
                                 <input type="submit" className="btn btn-primary" value="Submit" />
                         </div>
                     </form>
-                    {this.state.success ? <div className='alert mt-3 alert-success'>Project Created!</div> : <div className='alert mt-3 alert-danger'>Project Creation Failed!</div>}
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Project Created!</div> :null}
+                    {this.state.failed ? <div className='alert mt-3 alert-danger'>Oops Something Went Wrong</div> : null}
                 </div>
             </div>
         )

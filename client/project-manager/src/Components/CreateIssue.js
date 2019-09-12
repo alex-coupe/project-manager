@@ -14,12 +14,42 @@ export default class CreateIssue extends Component {
             description: '',
             severity: '' ,
             projectId: '',
-            project: {}
+            project: {},
+            errors: [],
+            success: null,
+            failed: null
         }
     }
 
     handleChange = (event) => {
       this.setState({[event.target.name]: event.target.value});
+    }
+
+    validateForm() {
+        let errors = [];
+            
+        if (this.state.name === '') {
+            errors.push('Name Is Required'); 
+        }
+              
+        if (this.state.loggedBy === '') {
+             errors.push('Logger Name Is Required');
+        }
+               
+        if (this.state.description === '') { 
+            errors.push('Description Is Required'); 
+        }
+              
+        if (this.state.severity === '') {
+             errors.push('Severity Is Required'); 
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+       return errors;
+               
     }
 
     componentDidMount() {
@@ -39,22 +69,36 @@ export default class CreateIssue extends Component {
     handleSubmit = (event) => {
         const {name,loggedBy,description,severity, projectId, resolved} = this.state;
         event.preventDefault();
-        fetch('http://localhost:5000/api/issues',{
-            method:'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({name, description, loggedBy, severity, projectId, resolved})
-        }).then(response => response.json())
-        .catch(error => console.log(error));
+        if (this.validateForm().length < 1) {
+            fetch('http://localhost:5000/api/issues',{
+                method:'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description, loggedBy, severity, projectId, resolved})
+            }).then(response => {
+                response.json();
+                if (response.status === 201) {
+                    this.setState({
+                        success:true
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    failed:true
+                });
+                console.log(error);
+            });
 
-        this.setState({
-            name: '',
-            loggedBy: '',
-            description: '',
-            severity: '',
-        });
+            this.setState({
+                name: '',
+                loggedBy: '',
+                description: '',
+                severity: '',
+            });
+        }
     }
 
     render() {
@@ -66,6 +110,9 @@ export default class CreateIssue extends Component {
                     </ol>
                 </nav>
                 <div className="mx-auto text-center">
+                {this.state.errors.length > 0 && this.state.errors.map((error, i) => {
+                    return (<div className='alert alert-danger' key={i}>{error}</div>)
+                })}
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
                             <label>
@@ -105,6 +152,8 @@ export default class CreateIssue extends Component {
                             <input type="submit" className="btn btn-primary" value="Submit" />
                         </div>
                     </form>
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Issue Created!</div> : null}
+                    {this.state.failed ? <div className='alert mt-3 alert-danger'>Oops Something Went Wrong</div> : null}
                 </div>
             </div>
         )
