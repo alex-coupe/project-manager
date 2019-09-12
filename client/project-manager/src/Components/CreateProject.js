@@ -11,14 +11,46 @@ export default class CreateProject extends Component {
             owner: '',
             users: [],
             description: '',
-            createdDate: '' 
+            createdDate: '',
+            errors : [],
+            success: null          
         }
     }
 
     handleChange = (event) => {
-      this.setState({[event.target.name]: event.target.value});
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value,
+        });
     }
 
+    validateForm() {
+        let errors = [];
+            
+        if (this.state.name === '') {
+            errors.push('Name Is Required'); 
+        }
+              
+        if (this.state.owner === '') {
+             errors.push('Owner Is Required');
+        }
+               
+        if (this.state.description === '') { 
+            errors.push('Description Is Required'); 
+        }
+              
+        if (this.state.createdDate === '') {
+             errors.push('Created Date Is Required'); 
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+       return errors;
+               
+    }
+    
     componentDidMount() {
         fetch('http://localhost:5000/api/users')
         .then(response => response.json())
@@ -32,22 +64,40 @@ export default class CreateProject extends Component {
     handleSubmit = (event) => {
         const {name,owner,description,createdDate} = this.state;
         event.preventDefault();
-        fetch('http://localhost:5000/api/projects',{
-            method:'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({name, description, owner, createdDate})
-        }).then(response => response.json())
-        .catch(error => console.log(error));
+        console.log(this.validateForm().length)
+        if (this.validateForm().length < 1) {
+            fetch('http://localhost:5000/api/projects',{
+                method:'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description, owner, createdDate})
+            }).then(response => response.json()).then(() => {
+                this.setState({
+                    success:true
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    success:false
+                });
+                console.log(error);
+            });
 
-        this.setState({
-            name: '',
-            owner: '',
-            description: '',
-            createdDate: ''
-        });
+            this.setState({
+                name: '',
+                owner: '',
+                description: '',
+                createdDate: '',
+                errors : {
+                    name: '',
+                    owner: '',
+                    description: '',
+                    createdDate: ''
+                }
+            });
+        }
     }
 
     render() {
@@ -55,11 +105,16 @@ export default class CreateProject extends Component {
             <div>
                 <Breadcrumb name='Create A New Project'/>
                 <div className="mx-auto text-center">
+                {this.state.errors.length > 0 && this.state.errors.map((error, i) => {
+                                return (<div className='alert alert-danger' key={i}>{error}</div>)
+                            })}
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group row justify-content-center">
+                          
                             <label>
                                 Project Name
                                 <input placeholder="Project Name" className="form-control" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
+                               
                             </label>
                         </div>
                         <div className="form-group row justify-content-center">
@@ -85,9 +140,10 @@ export default class CreateProject extends Component {
                             </label>
                         </div>
                         <div className="row justify-content-center">
-                            <input type="submit" className="btn btn-primary" value="Submit" />
+                                <input type="submit" className="btn btn-primary" value="Submit" />
                         </div>
                     </form>
+                    {this.state.success ? <div className='alert mt-3 alert-success'>Project Created!</div> : <div className='alert mt-3 alert-danger'>Project Creation Failed!</div>}
                 </div>
             </div>
         )
